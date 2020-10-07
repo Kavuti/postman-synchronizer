@@ -4,8 +4,6 @@ import logging
 import os
 import os.path
 import requests
-from pprint import pprint
-
 
 GLOBAL_URL = "https://api.getpostman.com/"
 COLLECTIONS_ENDPOINT = GLOBAL_URL + "collections/"
@@ -58,19 +56,6 @@ def merge_folders(new_folders, existing_folders):
     
     return [*common_folders, *remote_added_folders, *user_added_folders, *common_requests, *remote_added_requests, *user_added_requests]
 
-
-
-    for name, folder in new_dict.items():
-        if name in existing_dict:
-            if not "item" in folder:
-                pprint(folder)
-                input()
-            if not "item" in existing_dict[name]:
-                pprint(existing_dict[name])
-                input()
-            folder["item"] = merge_requests(folder["item"], existing_dict[name]["item"])
-
-    return sorted(list(new_dict.values()))
 
 def merge_requests(new_folder, existing_folder):
     new_requests = {r["name"]: r for r in new_folder}
